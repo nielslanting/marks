@@ -148,11 +148,14 @@ export class Highlight extends Mark {
         var offset = this.element.getBoundingClientRect();
         var container = this.container.getBoundingClientRect();
 
+        this.element.setAttribute('x', container.left);
+        this.element.setAttribute('y', container.top);
+
         for (var i = 0, len = filtered.length; i < len; i++) {
             var r = filtered[i];
             var el = svg.createElement('rect');
-            el.setAttribute('x', r.left - offset.left + container.left);
-            el.setAttribute('y', r.top - offset.top + container.top);
+            el.setAttribute('x', r.left - offset.left);
+            el.setAttribute('y', r.top - offset.top);
             el.setAttribute('height', r.height);
             el.setAttribute('width', r.width);
             docFrag.appendChild(el);
@@ -179,6 +182,9 @@ export class Underline extends Highlight {
         var offset = this.element.getBoundingClientRect();
         var container = this.container.getBoundingClientRect();
 
+        this.element.setAttribute('x', container.left);
+        this.element.setAttribute('y', container.top);
+
         for (var i = 0, len = filtered.length; i < len; i++) {
             var r = filtered[i];
 
@@ -191,10 +197,10 @@ export class Underline extends Highlight {
 
 
             var line = svg.createElement('line');
-            line.setAttribute('x1', r.left - offset.left + container.left);
-            line.setAttribute('x2', r.left - offset.left + container.left + r.width);
-            line.setAttribute('y1', r.top - offset.top + container.top + r.height - 1);
-            line.setAttribute('y2', r.top - offset.top + container.top + r.height - 1);
+            line.setAttribute('x1', r.left - offset.left);
+            line.setAttribute('x2', r.left - offset.left + r.width);
+            line.setAttribute('y1', r.top - offset.top + r.height - 1);
+            line.setAttribute('y2', r.top - offset.top + r.height - 1);
 
             line.setAttribute('stroke-width', 1);
             line.setAttribute('stroke', 'black'); //TODO: match text color?
